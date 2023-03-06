@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mow/ui/providers/firestore_movies_provider.dart';
+import 'package:mow/ui/providers/music_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/movies_provider.dart';
@@ -9,10 +11,20 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MovieProvider>(context);
+    var musicProvider = Provider.of<MusicProvider>(context);
+    var firestoreProvider = Provider.of<FirestoreProvider>(context);
     var size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: Text(provider.title!),
+          actions: [
+            FutureBuilder(
+              future: firestoreProvider.getMoviesWatched(),
+              builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
+                return Text(firestoreProvider.moviesWatched.length.toString());
+              },
+            ),
+          ],
         ),
         body: SizedBox(
           width: size.width,
@@ -44,6 +56,122 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               MoviesSlider(size: size, provider: provider),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: Row(
+                  children: [
+                    const Text(
+                      "Canciones pendientes",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 15,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.3,
+                width: size.width,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: musicProvider.songs
+                        .map((e) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: size.width * 0.4,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image:
+                                            NetworkImage(e.album.images[0].url),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: size.width * 0.15,
+                                          height: size.width * 0.15,
+                                          child: IconButton(
+                                            color: Colors.white,
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.black),
+                                            ),
+                                            onPressed: () {
+                                              musicProvider
+                                                  .playSong(e.previewUrl);
+                                            },
+                                            icon: musicProvider.isPlaying &&
+                                                    musicProvider.songPlaying ==
+                                                        e.previewUrl
+                                                ? const Icon(Icons.pause,
+                                                    size: 35)
+                                                : const Icon(Icons.play_arrow,
+                                                    size: 35),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    child: Container(
+                                      width: size.width * 0.27,
+                                      height: size.height * 0.05,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 1),
+                                          child: Text(
+                                            e.name,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ),
+              )
             ],
           ),
         ));

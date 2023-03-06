@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "711660053537",
+    "firebase_url": "https://mow-app-e0be2-default-rtdb.firebaseio.com",
+    "project_id": "mow-app-e0be2",
+    "storage_bucket": "mow-app-e0be2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711660053537:android:80c674721b5cf9ce2c2f60",
+        "android_client_info": {
+          "package_name": "com.example.mow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711660053537-dlunjgv9f1fm1d69s3nt4h5jl9noq3cg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkL4yFSa3vO2BLsZUR_BMmz3VXsFzXTZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711660053537-dlunjgv9f1fm1d69s3nt4h5jl9noq3cg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "711660053537-1r54os2us3kimad1alfe2ci3mrrr0r3a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mow"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

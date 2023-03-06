@@ -37,8 +37,15 @@ dependencies:
   http: ^0.13.5
   provider: ^6.0.5
   google_fonts: ^4.0.1 
-  palette_generator: ^0.3.3+2
   url_launcher: ^6.1.8
+  audioplayers: ^3.0.1
+  firebase_core: ^2.4.1
+  cloud_firestore: ^4.3.1
+  animate_do: ^3.0.2
+  firebase_messaging: ^14.2.1
+  flutter_local_notifications: ^13.0.0
+  firebase_auth: ^4.2.5
+  glass_kit: ^2.0.1
 
 dev_dependencies:
   flutter_test:

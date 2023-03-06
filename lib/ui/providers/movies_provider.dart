@@ -17,4 +17,9 @@ class MovieProvider with ChangeNotifier {
     movies = await _movieRepository.fetchAllMovies();
     notifyListeners();
   }
+
+  Future<String> getTrailer(int movieId) async {
+    final trailer = await _movieRepository.getTrailer(movieId);
+    return trailer;
+  }
 }

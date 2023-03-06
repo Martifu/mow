@@ -9,6 +9,11 @@ class MovieRepository {
     return response;
   }
 
+  Future<String> getTrailer(int movieId) async {
+    final response = await _apiProvider.getTrailer(movieId);
+    return response;
+  }
+
   // Future<Movie> fetchMovie(int id) async {
   //   final response = await _apiProvider.get("/movies/$id");
   //   return Movie.fromJson(response);
